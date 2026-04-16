@@ -1,3 +1,13 @@
+/* theme tokens */
+:root {
+  --brand-red: #ff003b;
+  --brand-gold: #e3a535;
+  --ink: #2a1f24;
+  --paper: #fffdf8;
+  --card: #ffffff;
+  --line: #eed9b3;
+}
+
 /* —— basic reset —— */
 * {
   box-sizing: border-box;
@@ -8,14 +18,28 @@
 /* —— body + fonts —— */
 body {
   font-family: "Montserrat", Arial, Helvetica, sans-serif;
-  color: #333;
+  color: var(--ink);
+  text-align: start;
   display: flex;
   justify-content: center;
+  background:
+    radial-gradient(
+      circle at 0% 0%,
+      rgba(255, 0, 59, 0.08) 0%,
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at 100% 20%,
+      rgba(227, 165, 53, 0.18) 0%,
+      transparent 50%
+    ),
+    var(--paper);
 }
 
 .page-wrapper {
   width: 90%;
   max-width: 900px;
+  padding-bottom: 20px;
 }
 
 /* header */
@@ -34,36 +58,51 @@ body {
   font-size: 22px;
   font-weight: 500;
   margin-bottom: 10px;
+  color: var(--brand-red);
 }
 
 /* category filter */
 .search-section {
   margin: 30px 0;
   display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.search-section select,
+.search-section input {
+  flex: 1 1 280px;
+  padding: 16px;
+  font-size: 16px;
+  border: 2px solid var(--brand-red);
+  border-radius: 8px;
+  background-color: var(--card);
+  font-weight: 500;
+  box-shadow: 0 8px 20px rgba(227, 165, 53, 0.2);
 }
 
 .search-section select {
-  width: 100%;
-  padding: 16px;
-  font-size: 18px;
-  border: 2px solid #000;
-  border-radius: 8px;
   cursor: pointer;
-  background-color: white;
-  font-weight: 500;
 }
 
-.search-section select:focus {
+.search-section input::placeholder {
+  color: #9b8d7f;
+}
+
+.search-section select:focus,
+.search-section input:focus {
   outline: none;
-  border-color: #666;
+  border-color: var(--brand-gold);
 }
 
 /* chat section */
 .chatbox {
   margin: 40px 0;
-  border: 2px solid #000;
-  border-radius: 8px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
   padding: 26px;
+  background: linear-gradient(145deg, #fff, #fff8eb);
+  box-shadow: 0 14px 34px rgba(42, 31, 36, 0.08);
 }
 
 .chatbox h2 {
@@ -73,12 +112,49 @@ body {
 
 .chat-window {
   padding: 20px;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.5;
-  height: 250px;
+  height: 300px;
   overflow-y: auto;
-  background: #fafafa;
+  background: #fff;
   margin-bottom: 20px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.chat-message {
+  display: flex;
+}
+
+.chat-message.user {
+  justify-content: flex-end;
+}
+
+.chat-message.assistant {
+  justify-content: flex-start;
+}
+
+.chat-bubble {
+  max-width: 88%;
+  padding: 10px 12px;
+  border-radius: 12px;
+  line-height: 1.45;
+  border: 1px solid transparent;
+}
+
+.chat-message.user .chat-bubble {
+  background: var(--brand-red);
+  color: #fff;
+  border-color: var(--brand-red);
+}
+
+.chat-message.assistant .chat-bubble {
+  background: #fff9ee;
+  border-color: var(--brand-gold);
+  color: var(--ink);
 }
 
 /* placeholder message */
@@ -100,20 +176,21 @@ body {
 .chat-form input {
   flex: 1;
   padding: 12px;
-  font-size: 18px;
-  border: none;
-  border-bottom: 2px solid #ccc;
-  background: transparent;
+  font-size: 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
 }
 
 .chat-form input:focus {
   outline: none;
-  border-bottom-color: #000;
+  border-color: var(--brand-red);
+  box-shadow: 0 0 0 2px rgba(255, 0, 59, 0.15);
 }
 
 .chat-form button {
   font-size: 18px;
-  background: #000;
+  background: var(--brand-red);
   color: #fff;
   border: none;
   padding: 12px;
@@ -127,11 +204,11 @@ body {
 }
 
 .chat-form button:hover {
-  background: #666666;
+  background: #cf0031;
 }
 
 .chat-form button:focus {
-  outline: 2px solid #000;
+  outline: 2px solid var(--brand-gold);
   outline-offset: 2px;
 }
 
@@ -161,13 +238,13 @@ body {
 }
 
 .site-footer a {
-  margin: 0 8px;
-  color: #000;
+  margin-inline: 8px;
+  color: var(--brand-red);
   text-decoration: none;
 }
 
 .site-footer a:hover {
-  color: #666666;
+  color: #b2002a;
 }
 
 /* products grid */
@@ -180,12 +257,36 @@ body {
 
 .product-card {
   flex: 0 1 calc(33.333% - 14px);
-  border: 1px solid #ccc;
+  border: 1px solid var(--line);
   padding: 15px;
-  border-radius: 4px;
+  border-radius: 10px;
   display: flex;
   gap: 15px;
-  min-height: 160px;
+  min-height: 180px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  background: var(--card);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.product-card:hover {
+  border-color: var(--brand-gold);
+  box-shadow: 0 8px 18px rgba(227, 165, 53, 0.22);
+}
+
+.product-card:focus {
+  outline: 2px solid var(--brand-red);
+  outline-offset: 2px;
+}
+
+.product-card.selected {
+  border-color: var(--brand-red);
+  background: #fff5f8;
+  box-shadow: 0 8px 18px rgba(255, 0, 59, 0.15);
 }
 
 .product-card img {
@@ -199,7 +300,7 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   min-height: 110px;
 }
 
@@ -208,17 +309,46 @@ body {
   margin-bottom: 8px;
 }
 
-.product-card p {
+.product-brand {
   font-size: 14px;
-  color: #666;
+  color: #8c6e39;
+  margin-bottom: 6px;
+}
+
+.product-description {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  padding: 12px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--ink);
+  background: rgba(255, 253, 248, 0.98);
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+  overflow-y: auto;
+  pointer-events: none;
+}
+
+.product-card:hover .product-description,
+.product-card:focus .product-description,
+.product-card:focus-within .product-description {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 
 /* selected products */
 .selected-products {
   margin: 40px 0;
   padding: 20px;
-  border: 2px solid #000;
-  border-radius: 8px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: linear-gradient(145deg, #fff, #fff8eb);
+  box-shadow: 0 14px 34px rgba(42, 31, 36, 0.08);
 }
 
 .selected-products h2 {
@@ -232,6 +362,62 @@ body {
   gap: 10px;
 }
 
+.selected-placeholder {
+  color: #8a7680;
+  font-size: 16px;
+}
+
+.selected-product-item {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 10px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.remove-selected-btn {
+  border: 1px solid var(--brand-red);
+  background: #fff;
+  color: var(--brand-red);
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.remove-selected-btn:hover {
+  background: var(--brand-red);
+  color: #fff;
+}
+
+.clear-selected-btn {
+  width: 100%;
+  margin-top: 12px;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  border: 1px solid var(--brand-gold);
+  color: #8c6e39;
+  background: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.clear-selected-btn:hover {
+  background: #fff7e8;
+}
+
+.clear-selected-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .generate-btn {
   width: 100%;
   margin-top: 20px;
@@ -239,17 +425,41 @@ body {
   font-size: 18px;
   font-weight: 500;
   color: #fff;
-  background: #000;
+  background: linear-gradient(90deg, var(--brand-red), #d90033);
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: background 0.3s;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .generate-btn:hover {
-  background: #666;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 16px rgba(255, 0, 59, 0.26);
 }
 
 .generate-btn i {
-  margin-right: 8px;
+  margin-inline-end: 8px;
+}
+
+/* RTL support: works whenever <html dir="rtl"> is set */
+html[dir="rtl"] {
+  direction: rtl;
+}
+
+html[dir="rtl"] .search-section,
+html[dir="rtl"] .chat-form {
+  direction: rtl;
+}
+
+html[dir="rtl"] .product-card {
+  flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .product-card .product-info,
+html[dir="rtl"] .selected-product-item,
+html[dir="rtl"] .chat-bubble,
+html[dir="rtl"] .site-footer {
+  text-align: right;
 }
